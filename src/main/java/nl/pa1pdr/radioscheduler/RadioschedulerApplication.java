@@ -7,9 +7,11 @@ import java.time.LocalTime;
 @SpringBootApplication
 public class RadioschedulerApplication {
 
-	//LocalTime lt = LocalTime.now();
-	TransmitSchedule ts = new TransmitSchedule ("Test",LocalTime.of(13,00),10);
-	Transmitter t = new Transmitter ("Test",147.48,TransmitMode.USB,ts);
+	Station test = new Station("Pinneberg", "Germany");
+	TransmitSchedule ts = new TransmitSchedule (test,"Test",LocalTime.of(13,00),10);
+	ReceptionCommand rcvRtty = new ReceptionCommand ("RTTY 85/45","jvcomm.exe -bd45");
+	Transmitter t = new Transmitter (test,"Test",147.48,TransmitMode.USB,rcvRtty);
+
 
 
 

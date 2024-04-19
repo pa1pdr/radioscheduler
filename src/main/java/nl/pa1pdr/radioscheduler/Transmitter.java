@@ -13,15 +13,19 @@ public class Transmitter extends AbstractEntity {
     String name;
 
     @ManyToOne
-    TransmitSchedule transmitSchedule;
+    Station station;
+
+    @ManyToOne
+    ReceptionCommand command;
 
     public Transmitter() {}
 
-    public Transmitter (String nm,double freq,TransmitMode mode, TransmitSchedule txSchedule) {
-        name = nm;
-        frequency = freq;
+    public Transmitter (Station station, String name,double freq,TransmitMode mode, ReceptionCommand command) {
+        this.name = name;
+        this.frequency = freq;
         this.mode = mode;
-        transmitSchedule = txSchedule;
+        this.station = station;
+        this.command = command;
     }
 
 

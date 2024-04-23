@@ -1,4 +1,4 @@
-package nl.pa1pdr.radioscheduler;
+package nl.pa1pdr.radioscheduler.model;
 
 public enum TransmitMode {
         USB,

@@ -1,4 +1,4 @@
-package nl.pa1pdr.radioscheduler;
+package nl.pa1pdr.radioscheduler.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +52,14 @@ public class Station extends AbstractEntity {
 
     public List<TransmitSchedule> getSchedules() {
         return schedules;
+    }
+
+    public void addTransmitter (Transmitter t) {
+        transmitters.add(t);
+    }
+
+    public void addSchedule (TransmitSchedule s) {
+        schedules.add (s);
     }
 
 

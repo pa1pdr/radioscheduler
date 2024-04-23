@@ -1,4 +1,4 @@
-package nl.pa1pdr.radioscheduler;
+package nl.pa1pdr.radioscheduler.model;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

@@ -1,4 +1,4 @@
-package nl.pa1pdr.radioscheduler;
+package nl.pa1pdr.radioscheduler.model;
 
 import java.sql.Time;
 import java.time.LocalTime;
@@ -9,14 +9,17 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class TransmitSchedule extends AbstractEntity {
-    String name;
+    private String name;
   
-    Time timeOfDay;
+    private Time timeOfDay;
     int repeatinterval = 24;   // in hours
     int duration;         // in minutes
+    boolean isEnabled = false;
+    String validity = "";
 
     @ManyToOne
     Station station;
+
 
     public TransmitSchedule () {}
 
@@ -27,6 +30,22 @@ public class TransmitSchedule extends AbstractEntity {
         this.station = station;
     }
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    public String getValidity() {
+        return validity;
+    }
+
+    public void setValidity(String validity) {
+        this.validity = validity;
+    }
+
     public String getName() {
         return name;
     }
@@ -35,12 +54,12 @@ public class TransmitSchedule extends AbstractEntity {
         this.name = name;
     }
 
-    public Time getTimeOfDay() {
-        return timeOfDay;
+    public LocalTime getTimeOfDay() {
+        return timeOfDay.toLocalTime();
     }
 
-    public void setTimeOfDay(Time timeOfDay) {
-        this.timeOfDay = timeOfDay;
+    public void setTimeOfDay(LocalTime timeOfDay) {
+        this.timeOfDay = Time.valueOf(timeOfDay);
     }
 
     public int getRepeatinterval() {

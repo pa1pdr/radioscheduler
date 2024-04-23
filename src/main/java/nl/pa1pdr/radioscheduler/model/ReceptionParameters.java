@@ -1,26 +1,29 @@
-package nl.pa1pdr.radioscheduler;
+package nl.pa1pdr.radioscheduler.model;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class ReceptionCommand extends AbstractEntity {
+public class ReceptionParameters extends AbstractEntity {
 
    
     String name;
     String commandline;
 
-    @OneToMany (mappedBy = "command")
+    @OneToMany (mappedBy = "receptionstyle")
     private final List<Transmitter> transmitter = new ArrayList<>();
 
+    @ManyToOne
+    private RadioTuner radio;
 
-    public ReceptionCommand() {}
+    public ReceptionParameters() {}
 
-    public ReceptionCommand (String name,String command) {
+    public ReceptionParameters (String name,String command) {
         this.name = name;
         this.commandline = command;
     }

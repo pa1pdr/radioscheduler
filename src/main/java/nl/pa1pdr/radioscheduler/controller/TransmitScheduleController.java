@@ -1,6 +1,7 @@
 package nl.pa1pdr.radioscheduler.controller;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -58,9 +59,17 @@ public class TransmitScheduleController {
 
     }
 
+
+
     public Iterable<TransmitSchedule> fetchAllSchedules() {
         return schedulerepo.findAll();
     }
+
+    
+    public List<TransmitSchedule> fetchEnabledSchedules() {
+        return schedulerepo.findByEnabledOrderByTimeOfDay(true);
+    }
+
 
     public Iterable<TransmitSchedule> fetchAllSchedules(Station s) {
         return s.getSchedules();

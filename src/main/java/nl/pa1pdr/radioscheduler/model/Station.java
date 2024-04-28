@@ -3,7 +3,8 @@ package nl.pa1pdr.radioscheduler.model;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -17,6 +18,7 @@ public class Station extends AbstractEntity {
 
 
     @OneToMany(mappedBy = "station")
+    @Fetch(FetchMode.JOIN)
     private final List<Transmitter> transmitters = new ArrayList<>();
 
     @OneToMany(mappedBy = "station")

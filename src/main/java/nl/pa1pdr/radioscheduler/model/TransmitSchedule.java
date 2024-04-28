@@ -3,6 +3,9 @@ package nl.pa1pdr.radioscheduler.model;
 import java.sql.Time;
 import java.time.LocalTime;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
@@ -14,10 +17,11 @@ public class TransmitSchedule extends AbstractEntity {
     private Time timeOfDay;
     int repeatinterval = 24;   // in hours
     int duration;         // in minutes
-    boolean isEnabled = false;
+    boolean enabled = false;
     String validity = "";
 
     @ManyToOne
+    @Fetch(FetchMode.JOIN)
     Station station;
 
 
@@ -31,11 +35,11 @@ public class TransmitSchedule extends AbstractEntity {
     }
 
     public boolean isEnabled() {
-        return isEnabled;
+        return enabled;
     }
 
     public void setEnabled(boolean isEnabled) {
-        this.isEnabled = isEnabled;
+        this.enabled = isEnabled;
     }
 
     public String getValidity() {

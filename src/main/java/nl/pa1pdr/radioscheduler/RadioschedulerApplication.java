@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import nl.pa1pdr.radioscheduler.controller.TransmitScheduleController;
+import nl.pa1pdr.radioscheduler.data.TransmitScheduleRepository;
 import nl.pa1pdr.radioscheduler.model.ReceptionParameters;
 import nl.pa1pdr.radioscheduler.model.Station;
 import nl.pa1pdr.radioscheduler.model.TransmitMode;
@@ -17,6 +18,7 @@ import nl.pa1pdr.radioscheduler.model.Transmitter;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.util.List;
 
 @SpringBootApplication
 public class RadioschedulerApplication {
@@ -26,6 +28,9 @@ public class RadioschedulerApplication {
 
 	@Autowired
 	private TransmitScheduleController txctl;
+
+	@Autowired
+	private TransmitScheduleRepository txrepo;
 
 	Station test = new Station("Pinneberg", "Germany");
 	TransmitSchedule ts = new TransmitSchedule (test,"Test",LocalTime.of(13,00),10);
@@ -39,20 +44,30 @@ public class RadioschedulerApplication {
 	}
 
 	public void run() {
-		TransmitSchedule ts2 = new TransmitSchedule (test,"Test2",LocalTime.of(14,00),10);
+/*		TransmitSchedule ts2 = new TransmitSchedule (test,"Test2",LocalTime.of(14,00),10);
 		test.addSchedule(ts);
 		test.addSchedule(ts2);
 		test.addTransmitter(t);
 		txctl.saveStation(test);
 		txctl.saveSchedule(ts);
 		//recrepo.save(rcvRtty);
-		try {
+ 	try {
 			parseWeatherfile(new File ("src/resources/WeatherFaxSchedules.xml"));
 		} catch (IOException ioe) {
 			logger.error ("Error reading XML file",ioe);
 		}
+*/
 
-		txctl.fetchAllSchedules();
+
+		List<TransmitSchedule> enabled =  txctl.fetchEnabledSchedules();
+		for (TransmitSchedule txs : enabled) {
+			logger.debug("Schedule {}",txs);		
+			   List<Transmitter> t = txs.getStation().getTransmitters();
+			   for (Transmitter tx : t) {
+			   		logger.info ("Schedule {} Transmitter {} at {} kHz",txs.getName(),tx.getName(),tx.getFrequency());
+			   }
+		}
+
 
 	}
 
